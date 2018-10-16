@@ -12,10 +12,15 @@ def main():
     url = "http://" + onion
     
     # res = session.get("http://3g2upl4pq6kufc4m.onion") # DuckDuckGo
-    res = session.get(url)
-    print ("Website reachable") if res.status_code is 200 else\
-        print("Website unreachable")
-    if (str(input("View headers? (y/n): "))) is 'y':
-        print(res.headers)
-    
+    try:
+        res = session.get(url)
+        print("Website reachable. Response 200. OK") if res.status_code is 200\
+            else print("Resource unavailable. Response not 200. Not OK.")
+        try:
+            if (str(input("View headers? (y/n): "))) is 'y':
+                print(res.headers)
+        except: print("No headers.")
+    except:
+        print("Website unreachable.")
+
 main()
